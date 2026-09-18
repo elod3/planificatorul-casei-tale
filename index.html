@@ -774,7 +774,7 @@ footer{border-top:1px solid var(--line);padding-block:2.8rem 5rem;font-size:.9re
           <div><b id="cd-s">00</b><span>sec</span></div>
         </div>
         <a class="btn btn-primary" href="#" data-buy>Cumpără acum</a>
-        <p class="pnote">Plată o singură dată · Livrare imediată prin email</p>
+        <p class="pnote" id="paynote">Plată o singură dată · Livrare imediată prin email</p>
       </div>
       <ul class="incl rv">
         <li><b>60 pag</b><span>Caietul complet în PDF, format A4.</span></li>
@@ -877,9 +877,10 @@ footer{border-top:1px solid var(--line);padding-block:2.8rem 5rem;font-size:.9re
    CONFIG — schimbă doar aici
    ═══════════════════════════════════════════════ */
 const CONFIG = {
-  launchStart: '2026-09-07T09:00:00+03:00',  // când începe oferta
+  launchStart: '',                           // când începe oferta, ex. '2026-10-01T09:00:00+03:00'; gol = fără numărătoare
   offerDays: 7,                              // câte zile ține
-  buyUrl: '#'                                // linkul de plată
+  buyUrl: '#',                               // linkul de plată; '#' = comandă prin email
+  orderEmail: 'office@inhabitstudio.ro'      // unde vin comenzile cât timp nu e link de plată
 };
 /* ═══════════════════════════════════════════════ */
 
@@ -888,7 +889,15 @@ const $=(s,c)=>(c||document).querySelector(s), $$=(s,c)=>[...(c||document).query
 const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const nf=new Intl.NumberFormat('ro-RO');
 
-$$('[data-buy]').forEach(a=>{ if(CONFIG.buyUrl&&CONFIG.buyUrl!=='#'){a.href=CONFIG.buyUrl;a.target='_blank';a.rel='noopener';} });
+const PAY=CONFIG.buyUrl&&CONFIG.buyUrl!=='#';
+const MAIL='mailto:'+CONFIG.orderEmail+'?subject='+encodeURIComponent('Comandă Planificatorul Casei Tale')+
+  '&body='+encodeURIComponent('Bună ziua,\n\nAș dori să comand Planificatorul Casei Tale (PDF, 50 €).\n\nNume:\nTelefon:\n\nMulțumesc!');
+$$('[data-buy]').forEach(a=>{
+  if(PAY){a.href=CONFIG.buyUrl;a.target='_blank';a.rel='noopener';}
+  else if(a.getAttribute('href')==='#') a.href=MAIL;
+});
+if(!PAY){ const n=document.getElementById('paynote');
+  if(n) n.textContent='Comanzi prin email · primești PDF-ul după confirmarea plății'; }
 
 /* ─── loader ─── */
 (function(){
@@ -1188,10 +1197,12 @@ function faq(){
 
 /* ─── countdown ─── */
 function countdown(){
-  const end=new Date(CONFIG.launchStart).getTime()+CONFIG.offerDays*864e5;
   const box=$('#cd'), lab=$('#cd-label');
+  const start=new Date(CONFIG.launchStart).getTime();
+  if(!CONFIG.launchStart||isNaN(start)){ box.style.display='none'; lab.style.display='none'; return; }
+  const end=start+CONFIG.offerDays*864e5;
   (function t(){ const d=end-Date.now();
-    if(d<=0){ box.style.display='none'; lab.textContent='Oferta de lansare s-a încheiat'; return; }
+    if(d<=0){ box.style.display='none'; lab.style.display='none'; return; }
     $('#cd-d').textContent=Math.floor(d/864e5);
     $('#cd-h').textContent=String(Math.floor(d/36e5)%24).padStart(2,'0');
     $('#cd-m').textContent=String(Math.floor(d/6e4)%60).padStart(2,'0');

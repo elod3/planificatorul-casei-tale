@@ -470,7 +470,8 @@ h1 .w{display:inline-block;white-space:nowrap}
 #pret .stage{position:relative}
 .price-wrap{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2.4rem}
 @media (max-width:880px){.price-wrap{grid-template-columns:1fr}}
-.price-card{position:relative;background:var(--paper-2);border:1px solid var(--line);border-radius:var(--r-lg);
+.price-card{position:relative;display:flex;flex-direction:column;justify-content:center;
+  background:var(--paper-2);border:1px solid var(--line);border-radius:var(--r-lg);
   padding:2.2rem 1.9rem;overflow:visible;text-align:center}
 .price-card::before{content:"";position:absolute;left:50%;top:34%;transform:translate(-50%,-50%);
   width:min(120%,520px);aspect-ratio:1;border-radius:50%;z-index:0;pointer-events:none;
@@ -486,6 +487,19 @@ h1 .w{display:inline-block;white-space:nowrap}
 .price-card .btn{width:100%}
 .pnote{font-family:"DM Mono",monospace;font-size:.62rem;letter-spacing:.13em;text-transform:uppercase;
   color:var(--ink-3);margin-top:.9rem}
+.price-lead{font-family:"Bricolage Grotesque","Archivo",sans-serif;font-weight:600;
+  font-size:clamp(1rem,1.7vw,1.15rem);line-height:1.45;color:var(--ink);margin-bottom:.4rem}
+.keeps{background:var(--paper-2);border:1px solid var(--line);border-radius:var(--r-lg);padding:1.9rem 1.7rem}
+.keeps-h{font-family:"Bricolage Grotesque","Archivo",sans-serif;font-weight:700;
+  font-size:clamp(1.05rem,1.9vw,1.3rem);line-height:1.3;color:var(--ink)}
+.keeps-h span{font-weight:500;color:var(--ink-2)}
+.keeps ul{list-style:none;margin:1.2rem 0 0;padding:0;display:grid;gap:.6rem}
+.keeps li{position:relative;padding-left:1.35rem;font-size:.96rem;line-height:1.5;color:var(--ink-2)}
+.keeps li::before{content:"";position:absolute;left:.15rem;top:.62em;width:6px;height:6px;
+  border-radius:50%;background:var(--red)}
+.keeps-end{margin-top:1.4rem;padding-top:1.2rem;border-top:1px solid var(--line);
+  font-size:.94rem;line-height:1.55;color:var(--ink-2)}
+.keeps-end em{color:var(--ink-3)}
 .incl{background:var(--paper-2);border:1px solid var(--line);border-radius:var(--r-lg);padding:1.9rem 1.7rem;
   list-style:none;margin:0;display:grid;gap:.85rem;align-content:start}
 .incl li{display:grid;grid-template-columns:3.6rem 1fr;gap:.9rem;align-items:baseline;font-size:.96rem;
@@ -507,11 +521,28 @@ h1 .w{display:inline-block;white-space:nowrap}
 .faq details[open] summary::after{transform:rotate(45deg);background:
     linear-gradient(#fff,#fff) center/11px 1.5px no-repeat,
     linear-gradient(#fff,#fff) center/1.5px 11px no-repeat,var(--red);border-color:var(--red)}
+.faq .a ul{list-style:none;margin:.7rem 0 0;padding:0;display:grid;gap:.5rem}
+.faq .a li{position:relative;padding-left:1.25rem}
+.faq .a li::before{content:"";position:absolute;left:.1rem;top:.62em;width:5px;height:5px;
+  border-radius:50%;background:var(--red)}
 .faq .a{padding:0 3.2rem 1.3rem 1.3rem;color:var(--ink-2);font-size:.96rem;max-width:76ch}
 
 /* ---------- footer ---------- */
+.seller{font-variant-numeric:tabular-nums;line-height:1.75}
+.todo{color:var(--red);border-bottom:1px dashed currentColor}
+.sal{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:2.2rem}
+.salbtn{display:flex;align-items:center;gap:.7rem;text-decoration:none;
+  background:var(--paper-2);border:1px solid var(--line);border-radius:var(--r-md);
+  padding:.65rem .9rem;transition:border-color .2s,background .2s}
+.salbtn:hover{border-color:var(--brand-deep);background:var(--paper-3)}
+.salbtn b{font-family:"Archivo",sans-serif;font-weight:800;font-size:.9rem;letter-spacing:-.02em;
+  color:var(--ink);line-height:1}
+.salbtn span{font-family:"DM Mono",monospace;font-size:.53rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-3);line-height:1.5}
 footer{border-top:1px solid var(--line);padding-block:2.8rem 5rem;font-size:.9rem;color:var(--ink-2);position:relative;z-index:2}
-.foot{display:flex;flex-wrap:wrap;gap:1.6rem;justify-content:space-between}
+.foot{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.8rem}
+@media (max-width:880px){.foot{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.foot{grid-template-columns:1fr}}
 .fine{font-size:.76rem;color:var(--ink-3);max-width:70ch;margin-top:1.6rem}
 
 </style>
@@ -790,18 +821,27 @@ footer{border-top:1px solid var(--line);padding-block:2.8rem 5rem;font-size:.9re
     <p class="eyebrow rv">Preț</p>
     <div class="price-wrap" style="margin-top:1.4rem">
       <div class="price-card rv">
+        <p class="price-lead">Pregătește prima versiune a casei tale: nevoile, prioritățile,
+          suprafața, mobilarea și întrebările.</p>
         <div class="price-now"><span class="big" data-pret>250 lei</span></div>
-        <a class="btn btn-primary" href="#" data-buy>Cumpără acum</a>
+        <a class="btn btn-primary" href="#" data-buy>Descoperă planificatorul</a>
         <p class="pnote" id="paynote">Plată o singură dată · Livrare imediată prin email</p>
       </div>
-      <ul class="incl rv">
-        <li><b>60 pag</b><span>Caietul complet în PDF, format A4.</span></li>
-        <li><b>16 pași</b><span>Harta procesului de construcție, cu subetapele fiecărui pas.</span></li>
-        <li><b>50 întreb</b><span>Chestionarul care scoate tema de proiectare din capul tău pe hârtie.</span></li>
-        <li><b>4 planșe</b><span>Mobilier desenat la scară: living, bucătărie, dormitor, birou.</span></li>
-        <li><b>2 foi</b><span>Caroiaj de 1 m² pentru print A3, cu reperele de 50 și 100 m².</span></li>
-        <li><b>3 tabele</b><span>Buget pe camere, inventar pe camere, niveluri de performanță energetică.</span></li>
-      </ul>
+      <div class="keeps rv">
+        <p class="keeps-h">Cu ce rămâi după ce îl completezi?<br><span>Vei ști mai clar:</span></p>
+        <ul>
+          <li>de ce suprafață ai nevoie;</li>
+          <li>cum poți optimiza suprafața, ca să te coste mai puțin execuția;</li>
+          <li>care sunt prioritățile familiei;</li>
+          <li>ce piese de mobilier și echipamente trebuie integrate;</li>
+          <li>ce întrebări trebuie puse despre teren;</li>
+          <li>ce nivel de eficiență energetică urmărești;</li>
+          <li>ce sistem constructiv să alegi.</li>
+        </ul>
+        <p class="keeps-end">Și, poate cel mai important, vei ajunge la întâlnirea cu arhitectul cu
+          ceva mult mai valoros decât: <em>„Ne-am gândit la o casă cu living open space și
+          2 dormitoare și ne place stilul ăsta de pe Pinterest."</em></p>
+      </div>
     </div>
   </div>
 </section>
@@ -882,7 +922,32 @@ footer{border-top:1px solid var(--line);padding-block:2.8rem 5rem;font-size:.9re
           <a href="mailto:office@inhabitstudio.ro">office@inhabitstudio.ro</a><br>
           <a href="https://inhabitstudio.ro">inhabitstudio.ro</a></p>
       </div>
+      <div>
+        <p class="eyebrow" style="margin-bottom:.7rem">Vânzătorul</p>
+        <!-- TODO Alin: numărul de la Registrul Comerțului și sediul social, din certificatul
+             de înregistrare. Restul datelor sunt confirmate. -->
+        <p class="seller">Inhabit Studio S.R.L.<br>
+          CUI 46039637<br>
+          Nr. Reg. Com. <span class="todo">de completat</span><br>
+          Sediul: <span class="todo">de completat</span></p>
+      </div>
+      <div>
+        <p class="eyebrow" style="margin-bottom:.7rem">Documente</p>
+        <p><a href="termeni.html">Termeni și condiții</a><br>
+          <a href="confidentialitate.html">Politica de confidențialitate</a><br>
+          <a href="confidentialitate.html#cookies">Politica de cookies</a></p>
+      </div>
     </div>
+
+    <div class="sal">
+      <a class="salbtn" href="https://anpc.ro/ce-este-sal/" target="_blank" rel="noopener">
+        <b>SAL</b><span>Soluționarea alternativă<br>a litigiilor · ANPC</span></a>
+      <a class="salbtn" href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener">
+        <b>SOL</b><span>Soluționarea online<br>a litigiilor · Comisia Europeană</span></a>
+      <a class="salbtn" href="https://anpc.ro/" target="_blank" rel="noopener">
+        <b>ANPC</b><span>Autoritatea Națională pentru<br>Protecția Consumatorilor</span></a>
+    </div>
+
     <p class="fine">Autori: arh. Anca Oprea și arh. Alin George Ionescu. Redactare și componentă narativă: Diana Șerbănescu. Planificatorul nu înlocuiește proiectarea realizată de arhitecți, ingineri și specialiști autorizați. Valorile și costurile din material sunt orientative și se adaptează la teren, localitate, soluția constructivă și reglementările aplicabile. © Inhabit Studio &amp; Empatic Studio.</p>
   </div>
 </footer>
@@ -929,7 +994,7 @@ function split(){
 
 /* ─── reveal + desene, cu decalaj pe chenare ─── */
 function reveals(){
-  $$('.vcard,.pf,.person,.price-card,.incl,.acc details,.faq details,.readout,.calc,.plan-board,.ez')
+  $$('.vcard,.pf,.person,.price-card,.keeps,.acc details,.faq details,.readout,.plan-board,.ez')
     .forEach(e=>e.classList.add('lift'));
   $$('.vcard,.pf,.rev,.ez,.price-card').forEach(e=>{
     const c=document.createElement('span'); c.className='corner'; c.setAttribute('aria-hidden','true');
@@ -953,12 +1018,12 @@ function reveals(){
 
 /* ─── recenzii ─── */
 const REVS=[
- ['Alin, mulțumim pentru Planificatorul Casei Tale. Este extrem de practic, de concret, logic, foarte detaliat și extrem de profesionist. Te ia pas cu pas și te trece prin toate fazele construcției unei case, chiar și prin câteva faze dinaintea construcției propriu-zise, care sunt foarte importante și definitorii pentru bugetul final. Sincer, merită 100% să fie parcurs de oricine vrea să construiască. Cred că cine ia în considerare pașii și sfaturile prezentate va face o economie de minimum 30% din prețul final al unei case construite. Merită!','Dieter Knobloch'],
- ['Exercițiul cu mobilierul decupat pe caroiaj m-a făcut să tai 18 m² din plan. 18 m² × 1.500 € economii în execuție și o casă care funcționează mai bine.','Daina H.'],
- ['Planificatorul Casei Tale și o ședință de claritate cu cei doi arhitecți m-au ajutat să îmi dau seama ce vreau, ce este fezabil și ce este fantezie instagramabilă, ce este de rezolvat în prezent și ce este de lăsat viitorului (căci am scrolat niște ore bune după așternuturi, eu neavând nici măcar turnată fundația casei ;)), ce înseamnă o casă sănătoasă, un flux de locuire eficient și multe alte tehnicalități care să susțină preferințele personale. E fain și a very smart move să faci lucrurile ca la caiet, pe rând, în ordinea logică, nu sărind ca un purice pe o coală albă de hârtie. Structură, claritate și direcție e ce ne trebuie tuturor, și mai ales când reconstruiești o viață.','Diana Șerbănescu'],
- ['Am cumpărat caietul înainte să semnez pentru teren. Lista de verificări m-a ferit de niște țepe foarte mari.','Denis'],
- ['Cred că valoarea adevărată a Planificatorului Casei Tale e că te ajută enorm în faza de concept, ca să nu irosești timp și bani pe greșeli care te-ar costa foarte mult în faza de execuție.','Luca Porumb']
+ ['Exercițiul cu mobilierul decupat pe caroiaj m-a ajutat să reduc suprafața din plan cu 18 m². Am putut vedea mai clar cum se așază mobilierul și cum funcționează camerele. Pentru mine, rezultatul a fost un plan mai eficient, cu mai puțini metri pătrați de construit.','Daina H.'],
+ ['Planificatorul și ședința de claritate cu cei doi arhitecți m-au ajutat să separ ce îmi doresc de ce este fezabil și ce trebuie decis acum de ce poate aștepta. Înainte, mă uitam la așternuturi fără să am fundația turnată. Acum am găsit structura, claritatea și direcția de care aveam nevoie.','Diana Ș.'],
+ ['Am cumpărat planificatorul înainte să semnez pentru teren. Lista de verificări m-a ajutat să evit costurile ascunse ale unui teren ieftin pe care pusesem ochii, dar cu probleme care m-ar fi costat mult mai mult în execuție. Pentru mine, acesta a fost cel mai valoros lucru.','Denis A.'],
+ ['Pentru mine, valoarea planificatorului stă în etapa de concept, când începi să conturezi casa. Te ajută să gândești din timp deciziile și să identifici posibile greșeli înainte de execuție, când corectarea lor poate costa mult mai mult timp și bani.','Luca Porumb']
 ];
+
 function revs(){
   const b=$('#revs'); if(!b) return;
   REVS.forEach(r=>{
@@ -1236,7 +1301,9 @@ function headings(){
 /* ─── calculator ─── */
 /* ─── FAQ ─── */
 const FAQ=[
-['Ce primesc, mai exact?','Un PDF de 60 de pagini, format A4, cu nouă capitole: harta procesului în 16 pași, verificările pentru teren, 50 de întrebări pentru temă, foi cu caroiaj de 1 m², patru planșe de mobilier la scară, principiile caselor eficiente energetic, comparația a cinci sisteme constructive, tabelul de buget pe camere și capitolul despre ales constructorul.'],
+['Ce primesc de fapt?','<b>Claritate.</b> Concret: un PDF de 60 de pagini, format A4, cu nouă capitole — harta procesului în 16 pași, verificările pentru teren, 50 de întrebări pentru temă, foi cu caroiaj de 1 m², patru planșe de mobilier la scară, principiile caselor eficiente energetic, comparația a cinci sisteme constructive, tabelul de buget pe camere și capitolul despre ales constructorul. Plus accesul la calculatorul online BuildWise.'],
+['Planificatorul este pentru tine dacă…','<ul><li>urmează să construiești prima casă;</li><li>încă îți cauți terenul;</li><li>ai terenul, dar nu știi cum să începi;</li><li>ai multe idei, dar încă nu formează o imagine coerentă;</li><li>construiești împreună cu partenerul și vreți să vă clarificați prioritățile;</li><li>vrei să înțelegi mai bine deciziile despre suprafață, orientare, eficiență și buget;</li><li>vrei să ajungi mai pregătit la arhitect.</li></ul>'],
+['Nu este pentru tine dacă…','<ul><li>cauți un proiect de casă gata făcut;</li><li>vrei un deviz exact;</li><li>cauți soluții tehnice finale, fără proiectare;</li><li>ești deja în faza de proiect tehnic și ai autorizația;</li><li>te aștepți ca un PDF să înlocuiască arhitectul, inginerul structurist, studiul geotehnic sau proiectele de specialitate.</li></ul>'],
 ['Cum îl primesc?','Prin email, imediat după plată. Îl descarci și rămâne la tine.'],
 ['Îmi trebuie deja teren?','Nu. Capitolul 1 e scris pentru etapa dinaintea cumpărării: ce verifici la teren și ce documente ceri înainte să semnezi.'],
 ['Am deja arhitect. Îmi mai folosește?','Da, și scurtează munca amândurora. Cele 50 de întrebări, inventarul pe camere și tabelul de buget ajung la arhitect ca material de lucru. Discuția pornește de la cifre.'],

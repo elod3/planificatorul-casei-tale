@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Mulțumim · Planificatorul Casei Tale</title>
+<meta name="description" content="Descarcă Planificatorul Casei Tale și intră în calculatorul BuildWise.">
+<link rel="icon" type="image/png" href="assets/img/buildwise-mark.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,500..800&family=Archivo:wdth,wght@100..125,400..800&family=Hanken+Grotesk:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/css/pagini.css">
+<style>
+  .hero-ok{text-align:center;padding-block:1.5rem 0}
+  .tick-ok{width:64px;height:64px;margin:0 auto 1.4rem;border-radius:50%;background:var(--red);
+    display:grid;place-items:center;box-shadow:0 0 44px rgba(var(--red-glow),.4)}
+  .tick-ok svg{width:30px;height:30px;stroke:#fff;stroke-width:2.6;fill:none;
+    stroke-linecap:round;stroke-linejoin:round}
+  .steps{display:grid;gap:1rem;margin-top:2.4rem}
+  @media (min-width:760px){.steps{grid-template-columns:1fr 1fr}}
+  .step{background:var(--paper-2);border:1px solid var(--line);border-radius:var(--r-lg);
+    padding:1.6rem;display:flex;flex-direction:column}
+  .step .k{font-family:"DM Mono",monospace;font-size:.6rem;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--brand-deep)}
+  .step h2{margin:.5rem 0 .3rem;font-size:1.25rem}
+  .step p{flex:1}
+  .step .btn{align-self:flex-start;margin-top:.6rem}
+  .shot{width:100%;height:auto;display:block;border:1px solid var(--line);
+    border-radius:var(--r-md);margin-top:1rem}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap inner">
+    <a class="brand" href="index.html"><img src="assets/img/buildwise-mark.png" alt="" width="26" height="26">Buildwise</a>
+    <a class="back" href="index.html">Înapoi la pagină</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="hero-ok">
+      <div class="tick-ok" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12.5 L9.5 18 L20 6.5"/></svg></div>
+      <p class="eyebrow">Plata a fost confirmată</p>
+      <h1>Mulțumim. Poți începe.</h1>
+      <p class="lede">Ai două lucruri de aici înainte: caietul, pe care îl descarci acum,
+        și calculatorul online, în care duci mai departe deciziile din el.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <span class="k">1 · Caietul</span>
+        <h2>Planificatorul Casei Tale</h2>
+        <p>PDF, 60 de pagini, format A4. Îl descarci o dată și rămâne la tine.
+          Ți l-am trimis și pe email, ca să îl ai și acolo.</p>
+        <!-- TODO Alin: pune aici linkul de descărcare al PDF-ului. -->
+        <a class="btn btn-primary" href="#" data-download>Descarcă PDF-ul</a>
+      </div>
+
+      <div class="step">
+        <span class="k">2 · Bonusul</span>
+        <h2>Calculatorul BuildWise</h2>
+        <p>În ordinea etapelor construirii casei alegi camerele, structura, izolarea,
+          încălzirea și finisajele. Costul estimat pentru casa la cheie se actualizează
+          la fiecare decizie.</p>
+        <a class="btn btn-ghost" href="https://calculator-inhabit.netlify.app/" target="_blank" rel="noopener">Deschide calculatorul</a>
+        <img class="shot" src="assets/img/calculator-buildwise.webp" width="1600" height="1037" loading="lazy"
+             alt="Calculatorul BuildWise, cu estimarea de cost actualizată la fiecare decizie">
+      </div>
+    </div>
+
+    <div class="card">
+      <p><strong>Nu ai primit emailul?</strong> Verifică folderul de spam sau promoții. Dacă tot
+        nu e acolo, scrie la <a href="mailto:office@inhabitstudio.ro">office@inhabitstudio.ro</a>
+        și îl retrimitem.</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Inhabit Studio S.R.L. · CUI 46039637 ·
+      <a href="termeni.html">Termeni și condiții</a> ·
+      <a href="confidentialitate.html">Confidențialitate</a></p>
+  </div>
+</footer>
+
+<script>
+/* Linkul de descărcare, într-un singur loc. Pune adresa fișierului aici. */
+const DOWNLOAD_URL = '';   // ex. 'https://.../planificatorul-casei-tale.pdf'
+document.querySelectorAll('[data-download]').forEach(a=>{
+  if(DOWNLOAD_URL){ a.href=DOWNLOAD_URL; a.setAttribute('download',''); }
+  else {
+    a.href='mailto:office@inhabitstudio.ro?subject='+encodeURIComponent('Descărcare Planificatorul Casei Tale');
+    a.textContent='Cere linkul pe email';
+  }
+});
+</script>
+</body>
+</html>

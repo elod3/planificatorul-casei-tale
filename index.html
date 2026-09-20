@@ -193,6 +193,8 @@ h1 .k{display:block;font-family:"DM Mono",monospace;font-size:.19em;font-weight:
   color:var(--ink-3);margin-bottom:1.1em;text-transform:uppercase}
 h1 .ch{display:inline-block}
 h1 .w{display:inline-block;white-space:nowrap}
+.hero-autori{margin-top:1.1rem;font-family:"DM Mono",monospace;font-size:.68rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-3)}
 .hero-sub{margin-top:1.5rem;font-size:clamp(1.05rem,1.7vw,1.24rem);color:var(--ink-2);max-width:44ch}
 .hero-cta{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:2.1rem;align-items:center}
 .tick{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;margin-top:1.5rem;font-family:"DM Mono",monospace;
@@ -398,6 +400,10 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;background:var(--red)
 .vis-q li::before{content:"";position:absolute;left:0;top:.5em;width:8px;height:8px;border-radius:50%;background:var(--red)}
 .vis-cta{margin-top:1.8rem;font-size:clamp(1.05rem,1.7vw,1.2rem);color:var(--ink-2)}
 .vis-cta b{color:var(--ink)}
+.vis-tools{list-style:none;margin:1.2rem 0 0;padding:0;display:grid;gap:.95rem}
+.vis-tools li{position:relative;padding-left:1.1rem;font-size:.98rem;line-height:1.55;color:var(--ink-2)}
+.vis-tools li::before{content:"";position:absolute;left:0;top:.62em;bottom:.3em;width:2px;
+  border-radius:2px;background:var(--brand-deep);opacity:.55}
 .vphone{justify-self:center;width:min(78%,300px);position:relative;filter:drop-shadow(0 26px 40px rgba(22,21,27,.28))}
 .vphone .scr{position:relative;overflow:hidden;background:#000}
 .vphone video{width:100%;height:100%;object-fit:contain;background:#000;display:block}
@@ -418,12 +424,29 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;background:var(--red)
 .bud-hi p{color:rgba(255,255,255,.78);margin:0}
 .bud-hi b{display:block;font-family:"Bricolage Grotesque",sans-serif;font-size:1.2rem;line-height:1.2;
   letter-spacing:-.015em;margin-bottom:.6rem;color:var(--peach)}
-.shots{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-top:1.8rem}
-@media (max-width:760px){.shots{grid-template-columns:1fr}}
-.shots figure{margin:0;background:#fff;border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;cursor:zoom-in}
-.shots img{width:100%;aspect-ratio:3/2;object-fit:cover}
+/* planșele de mobilier: bandă cu glisare stânga-dreapta */
+.shots{display:flex;gap:.8rem;margin-top:1.8rem;overflow-x:auto;scroll-snap-type:x mandatory;
+  padding-bottom:.9rem;scrollbar-width:thin;scrollbar-color:var(--brand-deep) transparent;
+  overscroll-behavior-x:contain}
+.shots::-webkit-scrollbar{height:4px}
+.shots::-webkit-scrollbar-thumb{background:var(--brand-deep);border-radius:4px}
+.shots::-webkit-scrollbar-track{background:transparent}
+.shots figure{flex:0 0 min(84%,430px);scroll-snap-align:center;margin:0;background:#fff;
+  border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden}
+@media (min-width:761px){.shots figure{flex-basis:min(46%,430px)}}
+.shots .pic{display:block;position:relative;overflow:hidden}
+.shots img{width:100%;aspect-ratio:3/2;object-fit:cover;display:block}
+/* primul rând rămâne descoperit, restul se estompează */
+.shots .pic::after{content:"";position:absolute;left:0;right:0;top:32%;bottom:0;pointer-events:none;
+  backdrop-filter:blur(6px) saturate(.88);-webkit-backdrop-filter:blur(6px) saturate(.88);
+  mask-image:linear-gradient(180deg,transparent,#000 26%);
+  -webkit-mask-image:linear-gradient(180deg,transparent,#000 26%);
+  background:linear-gradient(180deg,transparent,rgba(250,248,244,.42))}
 .shots figcaption{font-family:"DM Mono",monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;
   color:var(--ink-3);padding:.6rem .8rem;background:var(--paper-2);border-top:1px solid var(--line)}
+.shots-note{flex:0 0 auto;align-self:center;max-width:15ch;margin:0;padding:0 .6rem;
+  font-family:"DM Mono",monospace;font-size:.58rem;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);line-height:1.8}
 
 /* ---------- hartă ---------- */
 .map-grid{display:grid;grid-template-columns:1fr .9fr;gap:clamp(1.8rem,4vw,3.4rem);margin-top:1.8rem;align-items:center}
@@ -461,19 +484,10 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;background:var(--red)
 @keyframes breathe{0%,100%{opacity:.55;transform:translate(-50%,-50%) scale(.94)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.06)}}
 @media (prefers-reduced-motion:reduce){.price-card::before{animation:none}}
 .price-card>*{position:relative;z-index:1}
-.badge{display:inline-block;background:var(--red);color:#fff;border-radius:var(--r-pill);
-  font-family:"DM Mono",monospace;font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;
-  padding:.4rem .9rem;box-shadow:0 0 26px rgba(var(--red-glow),.6)}
 .price-now{display:flex;align-items:baseline;justify-content:center;gap:.9rem;flex-wrap:wrap;margin-top:1.2rem}
 .price-now .big{font-family:"Archivo",sans-serif;font-weight:800;font-size:clamp(4.2rem,13vw,6.6rem);
   line-height:.85;letter-spacing:-.055em;color:var(--red);font-variant-numeric:tabular-nums;
   text-shadow:0 0 60px rgba(var(--red-glow),.55),0 0 18px rgba(var(--red-glow),.35)}
-.price-now s{font-family:"Archivo",sans-serif;font-weight:700;font-size:clamp(1.3rem,3.2vw,1.9rem);
-  color:var(--ink-3);text-decoration-thickness:3px}
-.cd{display:flex;gap:.4rem;justify-content:center;margin:1.5rem 0 1.6rem}
-.cd div{background:var(--paper-3);border:1px solid var(--line);border-radius:var(--r-sm);padding:.55rem .1rem;flex:1;max-width:78px}
-.cd b{display:block;font-family:"Archivo",sans-serif;font-weight:800;font-size:1.4rem;line-height:1;font-variant-numeric:tabular-nums}
-.cd span{font-family:"DM Mono",monospace;font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
 .price-card .btn{width:100%}
 .pnote{font-family:"DM Mono",monospace;font-size:.62rem;letter-spacing:.13em;text-transform:uppercase;
   color:var(--ink-3);margin-top:.9rem}
@@ -517,7 +531,7 @@ footer{border-top:1px solid var(--line);padding-block:2.8rem 5rem;font-size:.9re
 <header>
   <div class="wrap inner">
     <a class="brand" href="#hero"><img src="assets/img/buildwise-mark.png" alt="" width="30" height="30">Buildwise</a>
-    <a class="hbtn" href="#pret" data-buy><s>149 €</s> Cumpără · 50 €</a>
+    <a class="hbtn" href="#pret" data-buy>Cumpără · <span data-pret>250 lei</span></a>
   </div>
 </header>
 
@@ -550,10 +564,11 @@ footer{border-top:1px solid var(--line);padding-block:2.8rem 5rem;font-size:.9re
   </div>
   <div class="wrap stage hero-grid">
     <div>
-      <h1><span class="k">Empatic · Inhabit</span><span data-split>Pune viața ta<br>în planul casei.</span></h1>
-      <p class="hero-sub rv"><b style="color:var(--ink)">Planificatorul Casei Tale</b>. Clarifică prin exerciții felul în care vrei să locuiești, spațiile de care ai nevoie și prioritățile bugetului.</p>
+      <h1><span data-split>Pune viața ta<br>în planul casei.</span></h1>
+      <p class="hero-autori rv">Creat de arh. Alin Ionescu &amp; arh. Anca Oprea</p>
+      <p class="hero-sub rv"><b style="color:var(--ink)">Planificatorul Casei Tale</b>. Clarifică prin exerciții felul în care vrei să locuiești, spațiile de care ai nevoie și prioritățile bugetului. Apoi vezi în calculatorul online inclus cât costă fiecare decizie.</p>
       <div class="hero-cta rv">
-        <a class="btn btn-primary" href="#pret" data-buy>Cumpără · 50 €</a>
+        <a class="btn btn-primary" href="#pret" data-buy>Cumpără · <span data-pret>250 lei</span></a>
         <a class="btn btn-ghost lift" href="#continut">Ce conține</a>
       </div>
     </div>
@@ -567,7 +582,7 @@ footer{border-top:1px solid var(--line);padding-block:2.8rem 5rem;font-size:.9re
           <span class="b-hinge"></span>
         </div>
       </div>
-      <span class="book-chip">PDF · 60 pagini · A4</span>
+      <span class="book-chip">PDF · 60 pagini · + calculator online de cost</span>
     </div>
   </div>
   <div class="wrap stage ticker rv" aria-hidden="true"><ul id="tick"></ul></div>
@@ -582,8 +597,19 @@ footer{border-top:1px solid var(--line);padding-block:2.8rem 5rem;font-size:.9re
       <ul class="vis-q">
         <li class="rv">Croită pe nevoile, dorințele și bugetul tău?</li>
         <li class="rv">Luminoasă, caldă, ușor de trăit, cu un spațiu interior de calitate?</li>
+        <li class="rv">Cu suficient loc, dar fără m² inutili?</li>
       </ul>
-      <p class="vis-cta rv"><b>Acum ai instrumentul ca să ajungi ușor la ea.</b></p>
+      <p class="vis-cta rv"><b>Am adunat într-un singur caiet instrumentele care te ajută
+        să ajungi la ea, pas cu pas:</b></p>
+      <ul class="vis-tools">
+        <li class="rv">50 de întrebări despre stilul tău de viață, un tabel de buget pe camere
+          și 15 principii care taie m² inutili.</li>
+        <li class="rv">Pornești de la canapea, pat și masă, decupate la scară. Desenezi pereții
+          în jurul lor, camerele capătă dimensiuni reale, iar suma lor îți arată suprafața totală
+          a casei. Estimezi costul cu ajutorul tabelului și verifici dacă te încadrezi în buget.</li>
+        <li class="rv">Citești orientarea terenului și alegi nivelul energetic al casei:
+          câtă izolație, ce ferestre, ce consum pe an.</li>
+      </ul>
     </div>
     <div class="vphone rv">
       <div class="bez"><div class="scr">
@@ -610,23 +636,31 @@ footer{border-top:1px solid var(--line);padding-block:2.8rem 5rem;font-size:.9re
     <span class="mark" aria-hidden="true">6</span>
     <p class="eyebrow rv">Capitolul 6 · Buget și optimizări</p>
     <h2 class="rv">8 din 10 familii își depășesc<br>bugetul propus la început.</h2>
-    <p class="lede rv" style="margin-top:1.2rem">Cum poți estima corect costurile construirii casei tale?</p>
+    <p class="lede rv" style="margin-top:1.2rem">Dimensiunea camerelor influențează suprafața
+      totală a casei și bugetul construirii ei. <strong>De câți metri pătrați ai nevoie ca să
+      locuiești bine?</strong></p>
 
     <div class="bud-grid">
       <div class="rv">
-        <p>Am pregătit un exercițiu practic în Planificator care te ajută să calculezi corect cât de mari trebuie să fie camerele, ca să încapă exact piesele de mobilier care îți vor susține viața dorită.</p>
-        <p><strong>Suprafața desfășurată e factorul care impactează cel mai puternic bugetul. Dacă o putem optimiza, vei economisi enorm în execuție.</strong></p>
+        <p>O masă la care să vă strângeți cu toții. Un colț pentru citit. Loc pentru lucrurile
+          voastre și spațiu să gătiți împreună. Dimensiunile camerelor ar trebui să pornească de
+          la felul în care vreți să trăiți. Dar cum transformi aceste dorințe în metri pătrați?</p>
+        <p>În Planificatorul Casei Tale ai un exercițiu practic cu mobilier la scară. Alegi și
+          așezi piesele de care ai nevoie în fiecare cameră, le glisezi și verifici cât loc îți
+          trebuie ca să le folosești și să circuli nestingherit.</p>
       </div>
       <div class="bud-hi rv">
-        <b>Vrei soluții ca să optimizezi metrii pătrați și să economisești în execuție chiar zeci de m², fără să pierzi din calitatea vieții tale?</b>
-        <p>Ai 15 principii de economisire în capitolul Buget, care reduc m² morți și îți eficientizează suprafața casei.</p>
+        <b>Scopul este să păstrezi spațiul care îți face viața mai bună și să elimini metrii
+          pătrați irosiți. Astfel, poți reduce costurile încă din proiect.</b>
+        <p>În capitolul Buget găsești cele 15 principii de economisire.</p>
       </div>
     </div>
 
     <div class="shots rv" id="shots">
-      <figure><img src="assets/img/mobilier-living.webp" alt="Șablon mobilier living, desenat la scară" loading="lazy"><figcaption>Șablon mobilier · Living</figcaption></figure>
-      <figure><img src="assets/img/mobilier-bucatarie.webp" alt="Șablon mobilier loc de masă și bucătărie, desenat la scară" loading="lazy"><figcaption>Șablon mobilier · Masă, bucătărie</figcaption></figure>
-      <figure><img src="assets/img/mobilier-dormitor.webp" alt="Șablon mobilier dormitor și baie, desenat la scară" loading="lazy"><figcaption>Șablon mobilier · Dormitor, baie</figcaption></figure>
+      <figure><span class="pic"><img src="assets/img/mobilier-living.webp" alt="Șablon mobilier living, desenat la scară" loading="lazy"></span><figcaption>Șablon mobilier · Living</figcaption></figure>
+      <figure><span class="pic"><img src="assets/img/mobilier-bucatarie.webp" alt="Șablon mobilier loc de masă și bucătărie, desenat la scară" loading="lazy"></span><figcaption>Șablon mobilier · Masă, bucătărie</figcaption></figure>
+      <figure><span class="pic"><img src="assets/img/mobilier-dormitor.webp" alt="Șablon mobilier dormitor și baie, desenat la scară" loading="lazy"></span><figcaption>Șablon mobilier · Dormitor, baie</figcaption></figure>
+      <p class="shots-note">Primul rând e descoperit. Restul planșelor vin în caiet.</p>
     </div>
 
     <div class="calc rv">
@@ -730,18 +764,10 @@ footer{border-top:1px solid var(--line);padding-block:2.8rem 5rem;font-size:.9re
     </svg>
   </div>
   <div class="wrap stage">
-    <p class="eyebrow rv">Preț de lansare</p>
+    <p class="eyebrow rv">Preț</p>
     <div class="price-wrap" style="margin-top:1.4rem">
       <div class="price-card rv">
-        <span class="badge">Reducere 66%</span>
-        <div class="price-now"><span class="big">50&nbsp;€</span><s>149 €</s></div>
-        <p class="pnote" id="cd-label">Prețul de lansare mai ține</p>
-        <div class="cd" id="cd">
-          <div><b id="cd-d">0</b><span>zile</span></div>
-          <div><b id="cd-h">00</b><span>ore</span></div>
-          <div><b id="cd-m">00</b><span>min</span></div>
-          <div><b id="cd-s">00</b><span>sec</span></div>
-        </div>
+        <div class="price-now"><span class="big" data-pret>250 lei</span></div>
         <a class="btn btn-primary" href="#" data-buy>Cumpără acum</a>
         <p class="pnote" id="paynote">Plată o singură dată · Livrare imediată prin email</p>
       </div>
@@ -845,10 +871,10 @@ footer{border-top:1px solid var(--line);padding-block:2.8rem 5rem;font-size:.9re
    CONFIG — schimbă doar aici
    ═══════════════════════════════════════════════ */
 const CONFIG = {
-  launchStart: '',                           // când începe oferta, ex. '2026-10-01T09:00:00+03:00'; gol = fără numărătoare
-  offerDays: 7,                              // câte zile ține
+  pret: '250 lei',                           // prețul, așa cum se afișează peste tot
   buyUrl: '#',                               // linkul de plată; '#' = comandă prin email
-  orderEmail: 'office@inhabitstudio.ro'      // unde vin comenzile cât timp nu e link de plată
+  orderEmail: 'office@inhabitstudio.ro',     // unde vin comenzile cât timp nu e link de plată
+  calculator: 'https://calculator-inhabit.netlify.app/'   // calculatorul BuildWise, primit la achiziție
 };
 /* ═══════════════════════════════════════════════ */
 
@@ -859,7 +885,8 @@ const nf=new Intl.NumberFormat('ro-RO');
 
 const PAY=CONFIG.buyUrl&&CONFIG.buyUrl!=='#';
 const MAIL='mailto:'+CONFIG.orderEmail+'?subject='+encodeURIComponent('Comandă Planificatorul Casei Tale')+
-  '&body='+encodeURIComponent('Bună ziua,\n\nAș dori să comand Planificatorul Casei Tale (PDF, 50 €).\n\nNume:\nTelefon:\n\nMulțumesc!');
+  '&body='+encodeURIComponent('Bună ziua,\n\nAș dori să comand Planificatorul Casei Tale (PDF, '+CONFIG.pret+').\n\nNume:\nTelefon:\n\nMulțumesc!');
+$$('[data-pret]').forEach(e=>e.textContent=CONFIG.pret);
 $$('[data-buy]').forEach(a=>{
   if(PAY){a.href=CONFIG.buyUrl;a.target='_blank';a.rel='noopener';}
   else if(a.getAttribute('href')==='#') a.href=MAIL;
@@ -929,7 +956,7 @@ function clip(){
 
 /* ─── imagini mărite ─── */
 function zoom(){
-  $$('#shots figure, #mapimg').forEach(f=>f.addEventListener('click',()=>{
+  $$('#mapimg').forEach(f=>f.addEventListener('click',()=>{
     const im=$('img',f);
     openLb(im.src,im.alt,f.querySelector('figcaption')?.textContent||'');
   }));
@@ -1135,15 +1162,19 @@ function lightbox(){
   addEventListener('keydown',e=>{ if(e.key==='Escape'&&lb.classList.contains('on')) close(); });
 }
 
-/* ─── bandă rulantă cu cei 16 pași ─── */
-const PASI=['Tema de claritate','Achiziția terenului','Certificat de urbanism','Studiu geotehnic',
- 'Concept','Proiect tehnic','Conformare energetică','Autorizația de construire','Ofertare și contractare',
- 'Organizare de șantier','Execuția structurii','Montarea tâmplăriilor','Termosistem','Instalații',
- 'Finisaje','Amenajare exterioară','Recepția lucrărilor','Mutarea'];
+/* ─── banda cu temele caietului ─── */
+const TEME=['Teren','Stil de viață','Suprafețe','Funcțiuni','Eficiență energetică',
+ 'Structură','Buget','Tema de proiectare'];
 function ticker(){
   const u=$('#tick'); if(!u) return;
-  const row=PASI.map(n=>'<li>'+n+'</li>').join('');
+  const row=TEME.map(n=>'<li>'+n+'</li>').join('');
   u.innerHTML=row+row;
+  // bucla merge pe -50%, deci jumătatea benzii trebuie să acopere ecranul;
+  // cu opt teme nu o acoperă, așa că repetăm rândul în perechi
+  const latEcran=()=>u.parentElement.offsetWidth;
+  for(let i=0;i<7&&u.scrollWidth<latEcran()*2;i++) u.innerHTML+=row+row;
+  // aceeași viteză pe secundă, indiferent câte repetări au ieșit
+  u.style.animationDuration=Math.round(u.scrollWidth/2/62)+'s';
 }
 
 /* ─── macheta: plutire + înclinare după mouse, cerc cu parallax ─── */
@@ -1205,21 +1236,6 @@ function faq(){
     d.innerHTML='<summary>'+f[0]+'</summary><div class="a">'+f[1]+'</div>'; b.appendChild(d); });
 }
 
-/* ─── countdown ─── */
-function countdown(){
-  const box=$('#cd'), lab=$('#cd-label');
-  const start=new Date(CONFIG.launchStart).getTime();
-  if(!CONFIG.launchStart||isNaN(start)){ box.style.display='none'; lab.style.display='none'; return; }
-  const end=start+CONFIG.offerDays*864e5;
-  (function t(){ const d=end-Date.now();
-    if(d<=0){ box.style.display='none'; lab.style.display='none'; return; }
-    $('#cd-d').textContent=Math.floor(d/864e5);
-    $('#cd-h').textContent=String(Math.floor(d/36e5)%24).padStart(2,'0');
-    $('#cd-m').textContent=String(Math.floor(d/6e4)%60).padStart(2,'0');
-    $('#cd-s').textContent=String(Math.floor(d/1e3)%60).padStart(2,'0');
-    setTimeout(t,1000); })();
-}
-
 /* ─── tilt + bară mobilă ─── */
 function extras(){
   const w=$('#tilt');
@@ -1233,7 +1249,7 @@ function extras(){
   }
 }
 
-headings(); revs(); clip(); accord(); lightbox(); pagini(); zoom(); ticker(); calc(); faq(); countdown();
+headings(); revs(); clip(); accord(); lightbox(); pagini(); zoom(); ticker(); calc(); faq();
 extras(); bookMotion(); cursor(); reveals(); walk();
 if(RM) split();
 </script>

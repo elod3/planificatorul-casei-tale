@@ -6,6 +6,7 @@
 <title>Mulțumim · Planificatorul Casei Tale</title>
 <meta name="description" content="Comanda ta pentru Planificatorul Casei Tale a fost înregistrată. Aici vezi ce ai primit pe email și cum intri în calculatorul online BuildWise.">
 <meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
 <link rel="icon" type="image/png" href="assets/img/buildwise-mark.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -74,7 +75,7 @@
         <circle cx="13" cy="13" r="12"/>
         <path d="M7 13.4 L11.2 17.4 L19 8.6" pathLength="1"/>
       </svg>
-      <span>Comandă înregistrată</span>
+      <span id="stare">Comandă înregistrată</span>
     </div>
 
     <h1>Mulțumim pentru încredere.</h1>
@@ -86,14 +87,13 @@
       <div class="pas">
         <b>01</b>
         <div>
-          <h2>Planificatorul a plecat pe email</h2>
-          <p>Ai primit pe adresa din comandă <strong>PDF-ul cu cele 60 de pagini</strong> și
-            <strong>factura</strong>. Salvează fișierul pe calculator sau pe telefon din prima,
-            ca să îl ai la îndemână și peste câteva luni.</p>
+          <h2>Planificatorul e al tău</h2>
+          <p>Descărcarea pornește singură în câteva secunde. Dacă browserul o oprește, apasă
+            butonul. Salvează fișierul pe calculator sau pe telefon din prima, ca să îl ai la
+            îndemână și peste câteva luni.</p>
           <p><a class="btn btn-primary" href="#" data-download>Descarcă PDF-ul</a></p>
-          <p class="mic">Descărcarea de aici se face o singură dată. Dacă emailul nu apare în
-            câteva minute, caută în Spam sau în Promoții; dacă tot nu e acolo, scrie-ne și îl
-            retrimitem — nu costă nimic.</p>
+          <p class="mic">Ai două descărcări. Același fișier îți vine și pe email, împreună cu
+            factura; dacă emailul nu apare în câteva minute, caută în Spam sau în Promoții.</p>
         </div>
       </div>
 
@@ -161,15 +161,44 @@
 </footer>
 
 <script>
-/* Linkul de descărcare, într-un singur loc. Pune adresa fișierului aici. */
-const DOWNLOAD_URL = '';   // ex. 'https://.../planificatorul-casei-tale.pdf'
-document.querySelectorAll('[data-download]').forEach(a=>{
-  if(DOWNLOAD_URL){ a.href=DOWNLOAD_URL; a.setAttribute('download',''); }
-  else {
-    a.href='mailto:office@inhabitstudio.ro?subject='+encodeURIComponent('Descărcare Planificatorul Casei Tale');
-    a.textContent='Cere linkul pe email';
+/* ═══════════════════════════════════════════════════════════════
+   WooCommerce trimite aici după plată, cu datele comenzii în
+   fragmentul de URL (după #). Fragmentul nu pleacă spre niciun
+   server: nu ajunge în loguri, în referrer sau la Google Fonts.
+   Format: #dl=<link descărcare>&nr=<număr comandă>
+   ═══════════════════════════════════════════════════════════════ */
+(function(){
+  var p = new URLSearchParams(location.hash.slice(1));
+  var dl = p.get('dl') || '';
+  var nr = p.get('nr') || '';
+
+  if (nr) {
+    var st = document.getElementById('stare');
+    if (st) st.textContent = 'Plata confirmată · comanda ' + nr;
   }
-});
+
+  var butoane = document.querySelectorAll('[data-download]');
+  if (dl) {
+    butoane.forEach(function(a){ a.href = dl; });
+    /* descărcarea pornește singură, într-un iframe ascuns, ca să nu mute omul de pe pagină */
+    setTimeout(function(){
+      var f = document.createElement('iframe');
+      f.style.display = 'none';
+      f.src = dl;
+      document.body.appendChild(f);
+    }, 2500);
+  } else {
+    butoane.forEach(function(a){
+      a.href = 'mailto:office@inhabitstudio.ro?subject=' + encodeURIComponent('Descărcare Planificatorul Casei Tale');
+      a.textContent = 'Cere linkul pe email';
+    });
+  }
+
+  /* linkul nu rămâne în bara de adrese după ce l-am folosit */
+  if (location.hash && history.replaceState) {
+    history.replaceState(null, '', location.pathname);
+  }
+})();
 </script>
 </body>
 </html>
